@@ -50,9 +50,9 @@ def getRoutes():
   ns = {"book": "http://www.example.org/Bookings/"}
 
   for node in xmlpayload.xpath("//book:getRoutesResponse/routes", namespaces=ns):
-    #print(node.xpath("/departureCode/text()"))
-    #print(node.xpath("/destinationCode/text()"))
-    print(ET.tostring(node))
+    print(node.findtext("departureCode"))
+    print(node.findtext("destinationCode"))
+    #print(ET.tostring(node))
   # end for
   
   return jsonify({})
