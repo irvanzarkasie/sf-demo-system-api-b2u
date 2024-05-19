@@ -62,7 +62,7 @@ def getRoutes():
     dep_code = node.findtext("departureCode")
     dest_code = node.findtext("destinationCode")
     resp_list.append({
-      "departureCode": DEPDESTCODEMAP.get(dep_code, "")
+      "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
       "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
     })
   # end for
