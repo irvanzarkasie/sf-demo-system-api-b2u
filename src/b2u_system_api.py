@@ -65,33 +65,33 @@ def getRoutes():
     mapped_dest_code = DEPDESTCODEMAP.get(dest_code, "")
     
     if departure_code is not None and destination_code is not None:
-      if departure_code == dep_code and destination_code == dest_code:
+      if DEPDESTCODEMAP.get(departure_code, "") == mapped_dep_code and DEPDESTCODEMAP.get(destination_code, "") == mapped_dest_code:
         resp_list.append({
-          "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
-          "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+          "departureCode": mapped_dep_code,
+          "destinationCode": mapped_dest_code
         })
       # end if
     # end if
     elif departure_code is not None and destination_code is None:
-      if departure_code == dep_code:
+      if DEPDESTCODEMAP.get(departure_code, "") == mapped_dep_code:
         resp_list.append({
-          "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
-          "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+          "departureCode": mapped_dep_code,
+          "destinationCode": mapped_dest_code
         })
       # end if
     # end if
     elif departure_code is None and destination_code is not None:
-      if destination_code == dest_code:
+      if DEPDESTCODEMAP.get(destination_code, "") == mapped_dest_code:
         resp_list.append({
-          "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
-          "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+          "departureCode": mapped_dep_code,
+          "destinationCode": mapped_dest_code
         })
       # end if
     # end if
     else:
       resp_list.append({
-        "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
-        "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+        "departureCode": mapped_dep_code,
+        "destinationCode": mapped_dest_code
       })
     # end else
   # end for
