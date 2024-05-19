@@ -38,8 +38,8 @@ DEPDESTCODEMAP = {
 def getRoutes():
   # Parse arguments
   args = request.args
-  departure_code = args.get("departure_code", None)
-  destination_code = args.get("destination_code", None)
+  departure_code = args.get("departureCode", None)
+  destination_code = args.get("destinationCode", None)
 
   data = """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://www.example.org/Bookings/">
