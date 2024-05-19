@@ -65,7 +65,7 @@ def getRoutes():
     mapped_dest_code = DEPDESTCODEMAP.get(dest_code, "")
     
     if departure_code is not None and destination_code is not None:
-      if DEPDESTCODEMAP.get(departure_code, "") == mapped_dep_code and DEPDESTCODEMAP.get(destination_code, "") == mapped_dest_code:
+      if departure_code == mapped_dep_code and destination_code == mapped_dest_code:
         resp_list.append({
           "departureCode": mapped_dep_code,
           "destinationCode": mapped_dest_code
@@ -73,7 +73,7 @@ def getRoutes():
       # end if
     # end if
     elif departure_code is not None and destination_code is None:
-      if DEPDESTCODEMAP.get(departure_code, "") == mapped_dep_code:
+      if departure_code == mapped_dep_code:
         resp_list.append({
           "departureCode": mapped_dep_code,
           "destinationCode": mapped_dest_code
@@ -81,7 +81,7 @@ def getRoutes():
       # end if
     # end if
     elif departure_code is None and destination_code is not None:
-      if DEPDESTCODEMAP.get(destination_code, "") == mapped_dest_code:
+      if destination_code == mapped_dest_code:
         resp_list.append({
           "departureCode": mapped_dep_code,
           "destinationCode": mapped_dest_code
