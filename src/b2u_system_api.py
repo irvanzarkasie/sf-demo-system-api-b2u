@@ -38,8 +38,8 @@ DEPDESTCODEMAP = {
 def getRoutes():
   # Parse arguments
   args = request.args
-  departure_code = args.get("departure_code", "")
-  destination_code = args.get("destination_code", "")
+  departure_code = args.get("departure_code", None)
+  destination_code = args.get("destination_code", None)
 
   data = """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://www.example.org/Bookings/">
@@ -61,10 +61,39 @@ def getRoutes():
   for node in xmlpayload.xpath("//book:getRoutesResponse/routes", namespaces=ns):
     dep_code = node.findtext("departureCode")
     dest_code = node.findtext("destinationCode")
-    resp_list.append({
-      "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
-      "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
-    })
+    mapped_dep_code = DEPDESTCODEMAP.get(dep_code, "")
+    mapped_dest_code = DEPDESTCODEMAP.get(dest_code, "")
+    
+    if departure_code is not None and destination_code is not None:
+      if departure_code == dep_code and destination_code == dest_code:
+        resp_list.append({
+          "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
+          "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+        })
+      # end if
+    # end if
+    elif departure_code is not None and destination_code is None:
+      if departure_code == dep_code:
+        resp_list.append({
+          "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
+          "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+        })
+      # end if
+    # end if
+    elif departure_code is None and destination_code is not None:
+      if destination_code == dest_code:
+        resp_list.append({
+          "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
+          "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+        })
+      # end if
+    # end if
+    else:
+      resp_list.append({
+        "departureCode": DEPDESTCODEMAP.get(dep_code, ""),
+        "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+      })
+    # end else
   # end for
   
   return jsonify(resp_list)
