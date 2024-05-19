@@ -9,6 +9,7 @@ import socket
 from datetime import datetime, timedelta
 import os
 import urllib3
+from lxml import etree as ET
 
 app = Flask(__name__)
 
@@ -44,8 +45,14 @@ def getRoutes():
 </soapenv:Envelope>
   """
   resp = http.request("POST", "http://168.119.225.15:38000/getRoutes", body=data, headers={'Content-Type': 'application/xml'})
-  print(resp.data)
+  xmlpayload = ET.parse.fromstring(resp.data.decode("utf-8"))
 
+  ns = {"book": "http://www.example.org/Bookings/"}
+
+  for node in xmlpayload.xpath("//book:getRoutesResponse/routes"):
+    print(node)
+  # end for
+  
   return jsonify({})
 # end def
 
