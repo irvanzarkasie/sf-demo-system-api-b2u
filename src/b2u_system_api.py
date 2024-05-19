@@ -45,11 +45,11 @@ def getRoutes():
 </soapenv:Envelope>
   """
   resp = http.request("POST", "http://168.119.225.15:38000/getRoutes", body=data, headers={'Content-Type': 'application/xml'})
-  xmlpayload = ET.parse.fromstring(resp.data.decode("utf-8"))
+  xmlpayload = ET.fromstring(resp.data.decode("utf-8"))
 
   ns = {"book": "http://www.example.org/Bookings/"}
 
-  for node in xmlpayload.xpath("//book:getRoutesResponse/routes"):
+  for node in xmlpayload.xpath("//book:getRoutesResponse/routes", namespaces=ns):
     print(node)
   # end for
   
