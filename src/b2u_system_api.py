@@ -63,12 +63,6 @@ def getRoutes():
     dest_code = node.findtext("destinationCode")
     mapped_dep_code = DEPDESTCODEMAP.get(dep_code, "")
     mapped_dest_code = DEPDESTCODEMAP.get(dest_code, "")
-    
-    print("departureCode", departure_code)
-    print("mapped_dep_code", mapped_dep_code)
-
-    print("destinationCode", destination_code)
-    print("mapped_dest_code", mapped_dest_code)
 
     if departure_code is not None and destination_code is not None:
       if departure_code == mapped_dep_code and destination_code == mapped_dest_code:
