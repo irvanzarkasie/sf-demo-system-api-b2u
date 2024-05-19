@@ -26,6 +26,14 @@ log_dir = "{home_dir}/logs".format(home_dir=home_dir)
 # HTTP connection pool
 http = urllib3.PoolManager()
 
+# Hash map for departure/destination code
+DEPDESTCODEMAP = {
+  "MY-Z1001": "MY-01",
+  "MY-Z1002": "MY-02",
+  "SG-S1001": "SG-01",
+  "SG-S1002": "SG-02"
+}
+
 @app.route('/sys/b2u/booking/routes', methods=['GET'])
 def getRoutes():
   # Parse arguments
@@ -49,13 +57,17 @@ def getRoutes():
 
   ns = {"book": "http://www.example.org/Bookings/"}
 
+  resp_list = []
   for node in xmlpayload.xpath("//book:getRoutesResponse/routes", namespaces=ns):
-    print(node.findtext("departureCode"))
-    print(node.findtext("destinationCode"))
-    #print(ET.tostring(node))
+    dep_code = node.findtext("departureCode")
+    dest_code = node.findtext("destinationCode")
+    resp_list.append({
+      "departureCode": DEPDESTCODEMAP.get(dep_code, "")
+      "destinationCode": DEPDESTCODEMAP.get(dest_code, "")
+    })
   # end for
   
-  return jsonify({})
+  return jsonify(resp_list)
 # end def
 
 if __name__ == '__main__':
