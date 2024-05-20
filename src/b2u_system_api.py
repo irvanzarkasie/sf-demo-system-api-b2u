@@ -33,19 +33,13 @@ DEPDESTCODEMAP = {
   "SG-S1001": "SG-01",
   "SG-S1002": "SG-02"
 }
-DEPDESTCODEMAPREVERSE = {
-  "MY-01": "MY-Z1001",
-  "MY-02": "MY-Z1002",
-  "SG-01": "SG-S1001",
-  "SG-02": "SG-S1002"
-}
 
 @app.route('/sys/b2u/booking/routes', methods=['GET'])
 def getRoutes():
   # Parse arguments
   args = request.args
-  departure_code = DEPDESTCODEMAPREVERSE.get(args.get("departureCode", ""), None)
-  destination_code = DEPDESTCODEMAPREVERSE.get(args.get("destinationCode", ""), None)
+  departure_code = args.get("departureCode", None)
+  destination_code = args.get("destinationCode", None)
 
   data = """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://www.example.org/Bookings/">
